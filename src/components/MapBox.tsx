@@ -1,37 +1,36 @@
-import { memo } from 'react';
+import { memo, useState, useEffect } from 'react';
 import DeckGL from '@deck.gl/react/typed';
 import { PolygonLayer } from '@deck.gl/layers/typed';
 import Map from 'react-map-gl';
-import { GeoData } from './types/GeoData'
-import { centerService, scalePolyService } from './service/TurfJSService';
+import { GeoData } from '../types/GeoData'
+import { centerService, scalePolyService } from '../service/TurfJSService';
 
 interface Props {
   loaded: boolean;
   data: GeoData | null;
   coverage: number;
+  height: number;
 }
 
-const MapBox = ({ loaded, data, coverage }: Props) => {
-  let valid = loaded && data !== null
+interface ViewState {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  zoom: number;
+  bearing: number;
+  pitch: number;
+  transitionDuration?: number;
+}
 
-  const INITIAL_VIEW_STATE = {
+const MapBox = ({ loaded, data, coverage, height }: Props) => {
+  const [initialViewState, setInitialViewState] = useState<ViewState>({
     latitude: 51.4,
     longitude: 0.45,
     zoom: 17,
     bearing: 0,
     pitch: 30
-  };
+  })
 
-  const center = data !== null ? centerService(data) : null
   const scalePoly = data !== null ? scalePolyService(data, coverage) : undefined
-
-  const VIEW_STATE = {
-    latitude: center?.geometry.coordinates[1],
-    longitude: center?.geometry.coordinates[0],
-    zoom: 17,
-    bearing: 0,
-    pitch: 30
-  };
 
   const layer = [
     new PolygonLayer({
@@ -42,7 +41,7 @@ const MapBox = ({ loaded, data, coverage }: Props) => {
       extruded: true,
       lineWidthMinPixels: 1,
       getPolygon: d => d,
-      getElevation: 10,
+      getElevation: 30 * height / 100,
       elevationScale: 0.5,
       getFillColor: [200, 200, 0],
       getLineColor: [80, 80, 80],
@@ -57,10 +56,20 @@ const MapBox = ({ loaded, data, coverage }: Props) => {
     })
   ];
 
+  useEffect(() => {
+    const center = data !== null ? centerService(data) : null
+    loaded && setInitialViewState({
+      latitude: center?.geometry.coordinates[1],
+      longitude: center?.geometry.coordinates[0],
+      zoom: 17,
+      bearing: 0,
+      pitch: 30
+    })
+  }, [data, loaded])
+
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
-      viewState={valid ? VIEW_STATE : undefined}
+      initialViewState={initialViewState}
       controller={true}
       layers={layer}
     >

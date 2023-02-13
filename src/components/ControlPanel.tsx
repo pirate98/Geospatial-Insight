@@ -12,13 +12,21 @@ interface Props {
   setData: (value: GeoData) => void;
   coverage: number;
   setCoverage: (value: number) => void;
+  height: number;
+  setHeight: (value: number) => void;
 }
 
-export default memo(function ControlPanel({ setLoaded, setData, coverage, setCoverage } : Props) {
-  const handleCoverage = (e: Event, value: number | number[]) => {
+export default memo(function ControlPanel({ setLoaded, setData, coverage, setCoverage, height, setHeight } : Props) {
+  const handleCoverage = (e : Event, value: number | number[]) => {
     e.preventDefault()
     const finalValue = Array.isArray(value) ? value[0] : value;
     setCoverage(finalValue);
+  }
+
+  const handleHeight = (e : Event, value : number | number[]) => {
+    e.preventDefault()
+    const finalValue = Array.isArray(value) ? value[0] : value;
+    setHeight(finalValue)
   }
 
   const handleGeoJson = (e: ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +63,14 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
           <Stack spacing={2} direction="row" alignItems="center" width="100%">
             <Typography>0</Typography>
             <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={coverage} onChange={handleCoverage} />
+            <Typography>100</Typography>
+          </Stack>
+        </ListItem>
+        <ListItem>floor height</ListItem>
+        <ListItem>
+          <Stack spacing={2} direction="row" alignItems="center" width="100%">
+            <Typography>0</Typography>
+            <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={height} onChange={handleHeight} />
             <Typography>100</Typography>
           </Stack>
         </ListItem>

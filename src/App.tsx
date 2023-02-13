@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter'
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import MapBox from "./MapBox";
+import MapBox from "./components/MapBox";
 import ControlPanel from './components/ControlPanel';
 import StatistiquesView from './components/StatistiquesView';
 import { GeoData } from './types/GeoData';
@@ -29,7 +29,8 @@ export default function App(props: Props) {
   const [controlOpen, setControlOpen] = useState<boolean>(false);
   const [statisOpen, setStatisOpen] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [coverage, setCoverage] = useState<number>(100)
+  const [coverage, setCoverage] = useState<number>(100);
+  const [height, setHeight] = useState<number>(100);
   const [data, setData] = useState<GeoData | null>(null);
 
   const handleControlPanel = () => {
@@ -41,8 +42,6 @@ export default function App(props: Props) {
   }
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
-  console.log("App rendered");
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -102,7 +101,9 @@ export default function App(props: Props) {
             setLoaded={setLoaded}
             setData={setData}
             coverage={coverage}
+            height={height}
             setCoverage={setCoverage}
+            setHeight={setHeight}
           />
         </Drawer>
         <Drawer
@@ -117,7 +118,9 @@ export default function App(props: Props) {
             setLoaded={setLoaded}
             setData={setData}
             coverage={coverage}
+            height={height}
             setCoverage={setCoverage}
+            setHeight={setHeight}
           />
         </Drawer>
       </Box>
@@ -128,7 +131,7 @@ export default function App(props: Props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <MapBox loaded={loaded} data={data} coverage={coverage} />
+        <MapBox loaded={loaded} data={data} coverage={coverage} height={height} />
       </Box>
 
       {/* statistiques */}
