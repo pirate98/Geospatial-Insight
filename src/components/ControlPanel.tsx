@@ -5,18 +5,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { Button, Slider, Stack } from '@mui/material';
-import { GeoData } from '../types/GeoData'
+import { CtrlProps } from '../types/GeoProps'
 
-interface Props {
-  setLoaded: (value: boolean) => void;
-  setData: (value: GeoData) => void;
-  coverage: number;
-  setCoverage: (value: number) => void;
-  height: number;
-  setHeight: (value: number) => void;
-}
-
-export default memo(function ControlPanel({ setLoaded, setData, coverage, setCoverage, height, setHeight } : Props) {
+export default memo(function ControlPanel({ setLoaded, setData, coverage, setCoverage, height, setHeight, floorNum, setFloorNum } : CtrlProps) {
   const handleCoverage = (e : Event, value: number | number[]) => {
     e.preventDefault()
     const finalValue = Array.isArray(value) ? value[0] : value;
@@ -27,6 +18,12 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
     e.preventDefault()
     const finalValue = Array.isArray(value) ? value[0] : value;
     setHeight(finalValue)
+  }
+
+  const handleFloorNum = (e : Event, value : number | number[]) => {
+    e.preventDefault()
+    const finalValue = Array.isArray(value) ? value[0] : value;
+    setFloorNum(finalValue)
   }
 
   const handleGeoJson = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,6 +60,14 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
           <Stack spacing={2} direction="row" alignItems="center" width="100%">
             <Typography>0</Typography>
             <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={coverage} onChange={handleCoverage} />
+            <Typography>100</Typography>
+          </Stack>
+        </ListItem>
+        <ListItem>floor number</ListItem>
+        <ListItem>
+          <Stack spacing={2} direction="row" alignItems="center" width="100%">
+            <Typography>0</Typography>
+            <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={floorNum} onChange={handleFloorNum} />
             <Typography>100</Typography>
           </Stack>
         </ListItem>

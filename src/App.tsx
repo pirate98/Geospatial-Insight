@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import MapBox from "./components/MapBox";
 import ControlPanel from './components/ControlPanel';
 import StatistiquesView from './components/StatistiquesView';
-import { GeoData } from './types/GeoData';
+import { GeoData } from './types/GeoProps';
 import './App.css';
 
 const drawerWidth = 240;
@@ -29,9 +29,10 @@ export default function App(props: Props) {
   const [controlOpen, setControlOpen] = useState<boolean>(false);
   const [statisOpen, setStatisOpen] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [coverage, setCoverage] = useState<number>(100);
-  const [height, setHeight] = useState<number>(100);
   const [data, setData] = useState<GeoData | null>(null);
+  const [coverage, setCoverage] = useState<number>(100);
+  const [floorNum, setFloorNum] = useState<number>(100);
+  const [height, setHeight] = useState<number>(100);
 
   const handleControlPanel = () => {
     setControlOpen(!controlOpen);
@@ -104,6 +105,8 @@ export default function App(props: Props) {
             height={height}
             setCoverage={setCoverage}
             setHeight={setHeight}
+            floorNum={floorNum}
+            setFloorNum={setFloorNum}
           />
         </Drawer>
         <Drawer
@@ -121,6 +124,8 @@ export default function App(props: Props) {
             height={height}
             setCoverage={setCoverage}
             setHeight={setHeight}
+            floorNum={floorNum}
+            setFloorNum={setFloorNum}
           />
         </Drawer>
       </Box>
@@ -131,7 +136,7 @@ export default function App(props: Props) {
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
-        <MapBox loaded={loaded} data={data} coverage={coverage} height={height} />
+        <MapBox loaded={loaded} data={data} coverage={coverage} height={height} floorNum={floorNum} />
       </Box>
 
       {/* statistiques */}
@@ -153,7 +158,7 @@ export default function App(props: Props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
-          <StatistiquesView />
+          <StatistiquesView loaded={loaded} data={data} height={height} coverage={coverage} floorNum={floorNum} />
         </Drawer>
         <Drawer
           anchor='right'
@@ -164,7 +169,7 @@ export default function App(props: Props) {
           }}
           open
         >
-          <StatistiquesView />
+          <StatistiquesView loaded={loaded} data={data} height={height} coverage={coverage} floorNum={floorNum} />
         </Drawer>
       </Box>
     </Box>

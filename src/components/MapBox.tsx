@@ -2,15 +2,8 @@ import { memo, useState, useEffect } from 'react';
 import DeckGL from '@deck.gl/react/typed';
 import { PolygonLayer } from '@deck.gl/layers/typed';
 import Map from 'react-map-gl';
-import { GeoData } from '../types/GeoData'
 import { centerService, scalePolyService } from '../service/TurfJSService';
-
-interface Props {
-  loaded: boolean;
-  data: GeoData | null;
-  coverage: number;
-  height: number;
-}
+import {ViewProps} from '../types/GeoProps'
 
 interface ViewState {
   latitude: number | undefined;
@@ -21,7 +14,7 @@ interface ViewState {
   transitionDuration?: number;
 }
 
-const MapBox = ({ loaded, data, coverage, height }: Props) => {
+const MapBox = ({ loaded, data, coverage, height, floorNum }: ViewProps) => {
   const [initialViewState, setInitialViewState] = useState<ViewState>({
     latitude: 51.4,
     longitude: 0.45,
