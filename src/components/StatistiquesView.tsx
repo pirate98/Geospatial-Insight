@@ -12,6 +12,7 @@ export default memo(function StatistiquesView({loaded, data, height, coverage, f
   let buildingArea = loaded && data ? areaService(data, coverage) : 0;
   let floorArea = floorNum * buildingArea;
   let volumn = buildingArea * height * floorNum;
+  let buidlingElevation = 5 * height * floorNum / 100;
   return (
     <div>
       <Toolbar>
@@ -20,19 +21,19 @@ export default memo(function StatistiquesView({loaded, data, height, coverage, f
       <Divider />
       <List>
         <ListItem>
-          <Typography>Land Area: {landArea.toFixed(2)} m<sup>2</sup></Typography>
+          <Typography><strong>Land Area:</strong>{landArea.toFixed(2)} m<sup>2</sup></Typography>
         </ListItem>
         <ListItem>
-          <Typography>Building Area: {buildingArea.toFixed(2)} m<sup>2</sup></Typography>
+          <Typography><strong>Building Area: </strong>{buildingArea.toFixed(2)} m<sup>2</sup></Typography>
         </ListItem>
         <ListItem>
-          <Typography>Building Floor Area: {floorArea.toFixed(2)} m<sup>2</sup></Typography>
+          <Typography><strong>Building Floor Area: </strong>{floorArea.toFixed(2)} m<sup>2</sup></Typography>
         </ListItem>
         <ListItem>
-          <Typography>Volumn: {volumn.toFixed(2)}m<sup>2</sup></Typography>
+          <Typography><strong>Volumn: </strong>{volumn.toFixed(2)}m<sup>2</sup></Typography>
         </ListItem>
         <ListItem>
-          <Typography>Building Height: {height}m</Typography>
+          <Typography><strong>Building Height: </strong>{buidlingElevation}m</Typography>
         </ListItem>
       </List>
     </div>

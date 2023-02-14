@@ -67,7 +67,7 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
         <ListItem>
           <Stack spacing={2} direction="row" alignItems="center" width="100%">
             <Typography>0</Typography>
-            <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={floorNum} onChange={handleFloorNum} />
+            <Slider defaultValue={50} min={1} valueLabelDisplay="auto" value={floorNum} onChange={handleFloorNum} />
             <Typography>100</Typography>
           </Stack>
         </ListItem>
@@ -75,7 +75,7 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
         <ListItem>
           <Stack spacing={2} direction="row" alignItems="center" width="100%">
             <Typography>0</Typography>
-            <Slider defaultValue={50} min={0.1} valueLabelDisplay="auto" value={height} onChange={handleHeight} />
+            <Slider defaultValue={50} min={1} valueLabelDisplay="auto" value={height} onChange={handleHeight} />
             <Typography>100</Typography>
           </Stack>
         </ListItem>

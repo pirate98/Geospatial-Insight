@@ -31,8 +31,8 @@ export default function App(props: Props) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [data, setData] = useState<GeoData | null>(null);
   const [coverage, setCoverage] = useState<number>(100);
-  const [floorNum, setFloorNum] = useState<number>(100);
-  const [height, setHeight] = useState<number>(100);
+  const [floorNum, setFloorNum] = useState<number>(1);
+  const [height, setHeight] = useState<number>(5);
 
   const handleControlPanel = () => {
     setControlOpen(!controlOpen);
@@ -50,8 +50,8 @@ export default function App(props: Props) {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${2 * drawerWidth}px)` },
+          mx: { md: `${drawerWidth}px` },
         }}
       >
         <Toolbar style={{display: 'flex', justifyContent: 'space-between'}}>
@@ -60,7 +60,7 @@ export default function App(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleControlPanel}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2, display: { md: 'none' } }}
           >
             <MenuIcon />
           </IconButton>
@@ -72,7 +72,7 @@ export default function App(props: Props) {
             aria-label="open drawer"
             edge="end"
             onClick={handleStatistiques}
-            sx={{ ml: 2, display: { sm: 'none' } }}
+            sx={{ ml: 2, display: { nd: 'none' } }}
           >
             <HelpCenterIcon />
           </IconButton>
@@ -94,7 +94,7 @@ export default function App(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { sm: 'block', md: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
@@ -112,7 +112,7 @@ export default function App(props: Props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { sm: 'none', md: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
           open
@@ -133,7 +133,7 @@ export default function App(props: Props) {
       {/* main view */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ flexGrow: 1, p: 3, width: { md: `calc(100% - ${2 * drawerWidth}px)` } }}
       >
         <Toolbar />
         <MapBox loaded={loaded} data={data} coverage={coverage} height={height} floorNum={floorNum} />
@@ -154,7 +154,7 @@ export default function App(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
+            display: { sm: 'block', md: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
@@ -164,7 +164,7 @@ export default function App(props: Props) {
           anchor='right'
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
+            display: { sm: 'none', md: 'block' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
           open

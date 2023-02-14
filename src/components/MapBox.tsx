@@ -34,11 +34,11 @@ const MapBox = ({ loaded, data, coverage, height, floorNum }: ViewProps) => {
       extruded: true,
       lineWidthMinPixels: 1,
       getPolygon: d => d,
-      getElevation: 30 * height / 100,
-      elevationScale: 0.5,
+      getElevation: 5 * height / 100,
+      elevationScale: 1,
       getFillColor: [200, 200, 0],
       getLineColor: [80, 80, 80],
-      getLineWidth: d => 1
+      getLineWidth: 1
     }),
     new PolygonLayer({
       id: 'area-layer',
