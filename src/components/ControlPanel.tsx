@@ -1,4 +1,4 @@
-import { ChangeEvent, memo } from 'react';
+import { ChangeEvent } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { Button, Slider, Stack } from '@mui/material';
 import { CtrlProps } from '../types/GeoProps'
 
-export default memo(function ControlPanel({ setLoaded, setData, coverage, setCoverage, height, setHeight, floorNum, setFloorNum } : CtrlProps) {
+export default function ControlPanel({ setLoaded, setData, coverage, setCoverage, height, setHeight, floorNum, setFloorNum } : CtrlProps) {
   const handleCoverage = (e : Event, value: number | number[]) => {
     e.preventDefault()
     const finalValue = Array.isArray(value) ? value[0] : value;
@@ -82,4 +82,4 @@ export default memo(function ControlPanel({ setLoaded, setData, coverage, setCov
       </List>
     </div>
   )
-});
+};

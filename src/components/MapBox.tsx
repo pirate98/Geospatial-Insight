@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DeckGL from '@deck.gl/react/typed';
 import { PolygonLayer } from '@deck.gl/layers/typed';
 import Map from 'react-map-gl';
@@ -74,4 +74,4 @@ const MapBox = ({ loaded, data, coverage, height, floorNum }: ViewProps) => {
   );
 }
 
-export default memo(MapBox);
+export default MapBox;

@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { ViewProps } from '../types/GeoProps';
 import { areaService } from '../service/TurfJSService';
 
-export default memo(function StatistiquesView({loaded, data, height, coverage, floorNum} : ViewProps) {
+export default function StatistiquesView({loaded, data, height, coverage, floorNum} : ViewProps) {
   let landArea = loaded && data ? areaService(data, 100) : 0;
   let buildingArea = loaded && data ? areaService(data, coverage) : 0;
   let floorArea = floorNum * buildingArea;
@@ -38,4 +37,4 @@ export default memo(function StatistiquesView({loaded, data, height, coverage, f
       </List>
     </div>
   )
-});
+};
